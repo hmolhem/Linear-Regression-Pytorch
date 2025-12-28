@@ -1,0 +1,11 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [     
+        {
+            "name": "Linear-Regression-Pytorch",
+            "path": "c:\\MyDocument\\Howsam\\Linear-Regression-Pytorch",
+            "type": "conda"
+        }
+    ]   
+}
