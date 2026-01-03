@@ -14,35 +14,38 @@ class DataHandler:
         return data
     
     def get_labels(self):
-        return tuple(self.data.columns.tolist())
+        cols = self.data.columns.tolist()
+        return cols[0], cols[1] # Assuming first two columns are features and target
     
     def get_data(self, data, x_label, y_label):
         x = data[x_label].values
         y = data[y_label].values
         return x, y
     
-    def split_data(self, train_size=0.7, seed=42):
+    def split_data(self, df=None, train_size=0.7, seed=42):
         """
         Splits the data into training and testing sets.
         train_size: float (0.0 to 1.0)
         seed: int for reproducibility
         """
+        data = df if df is not None else self.data
+        
         import numpy as np
         # 1. Shuffle the data indices
         np.random.seed(seed)
         # Create a shuffled array of indices based on the length of the dataframe
-        shuffled_indices = np.random.permutation(len(self.data))
+        shuffled_indices = np.random.permutation(len(data))
         
         # 2. Determine the split point
-        split_index = int(len(self.data) * train_size)
+        split_index = int(len(data) * train_size)
         
         # 3. Slice indices
         train_indices = shuffled_indices[:split_index]
         test_indices = shuffled_indices[split_index:]
         
         # 4. Create the sets using .iloc
-        train_set = self.data.iloc[train_indices]
-        test_set = self.data.iloc[test_indices]
+        train_set = data.iloc[train_indices]
+        test_set = data.iloc[test_indices]
         
         return train_set, test_set
 
